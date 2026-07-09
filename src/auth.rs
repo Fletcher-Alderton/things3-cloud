@@ -76,8 +76,7 @@ pub fn write_auth(email: &str, password: &str) -> Result<std::path::PathBuf> {
 
 fn write_auth_at(path: &std::path::Path, email: &str, password: &str) -> Result<()> {
     let (email, password) = validate_auth(email, password)?;
-    let parent = path
-        .parent()
+    path.parent()
         .ok_or_else(|| anyhow!("Invalid auth file path"))?;
     create_private_dir(parent).with_context(|| format!("Failed creating {}", parent.display()))?;
 
